@@ -1,0 +1,24 @@
+# HEADSCALE SERVER!!!
+headscale.private.com {
+    reverse_proxy /web* http://headscale-ui:80
+    reverse_proxy * http://headscale:8080
+}
+# Interner Dienst der ein SSL-Zertifakt bekommt aber nur über eine bestimmte IP erreichbar ist
+https://app.private.com {
+    @blocked {
+        not remote_ip 222.11.22.111
+    }
+    respond @blocked "access denied" 403
+
+    reverse_proxy http://100.64.0.1:8080
+
+
+# Interner Dienst der ein SSL-Zertifakt bekommt aber nur über eine bestimmte IP (DYNDNS) erreichbar sein soll. 
+# Das ip.sh Script upadtet die IP
+https://app2.private.com {
+    @blocked {
+        not remote_ip CURRENT_IP_PLACEHOLDER
+    }
+    respond @blocked "access denied" 403
+
+    reverse_proxy http://100.64.0.1:8088

@@ -1,0 +1,25 @@
+---
+services:
+  headscale:
+    image: headscale/headscale:0.23.0-alpha11
+    container_name: headscale
+    command: serve
+    restart: unless-stopped
+    volumes:
+      - ./headscale/config:/etc/headscale
+      - ./headscale/data:/var/lib/headscale
+      - ./headscale/config/acl:/etc/headscale/acl
+  headscale-ui:
+    image: ghcr.io/gurucomputing/headscale-ui:latest
+    restart: unless-stopped
+  caddy:
+    image: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./caddy/config:/config
+      - ./caddy/data:/data
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
