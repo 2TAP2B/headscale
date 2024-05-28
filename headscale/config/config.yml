@@ -16,7 +16,6 @@ server_url: https://headscale.private.com
 #
 # For production:
 # listen_addr: 0.0.0.0:8080
-# !!! Bitte anpassen!!!
 listen_addr: 0.0.0.0:8080
 
 # Address to listen to /metrics, you may want
